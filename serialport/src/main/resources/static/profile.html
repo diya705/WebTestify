@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="profile_style.css">
+    <script defer src="profile_scripts.js"></script>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="images/profilephoto.png" alt="" class="profile-photo" id="profile-photo">
+            <div class="profile-info">
+                <h1 class="profile-name" id="profile-name">Username</h1>
+                <p class="profile-email" id="profile-email">example@gmail.com</p>
+            
+                <p class="profile-linkedin" id="profile-linkedin">Linkedin: <a href="#" id="linkedin-link">Add Link</a></p>
+
+            </div>
+
+        </div>
+        <button id="edit-profile-btn">Edit Profile</button>
+        
+        <div class="profile-support">
+            <h2>Help and Support</h2>
+            <p>If you need any assistance, please reach out to our support team</p>
+            <ul class="support-list">
+                <li><a href="contact.html">Email Support</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+    <!----Edit Profile-->
+    <div id="edit-profile-modal" class="modal">
+        <span class="close-btn" id="close-modal">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="edit-profile-form">
+            <label for="profile-photo-input">Profie Photo:</label>
+            <input type="file" id="profile-photo-input"><br><br>
+
+            <label for="profile-name-input">Name</label>
+            <input type="text" id="profile-name-input" value="Username"><br><br>
+
+            <label for="profile-email-input">Email</label>
+            <input type="email" id="profile-email-input" value="example@gmail.com"><br><br>
+
+            <!--<label for="facebook-id-input">Facebook ID</label>-->
+            <!--"linkedin-id-input">Linkedin ID</label>-->
+            <input type="text" id="linkedin-id-input" placeholder="Linkedin Profile Link"><br><br>
+
+            <button type="button" id="save-changes-btn">Save Changes</button>
+            <button type="button" id="delete-profile-btn">Delete Profile</button>
+        </form>
+
+    </div>
+</body>
+</html>

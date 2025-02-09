@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Input to Terminal</title>
+    <link rel="stylesheet" href="t_styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Text Input to Terminal</h1>
+    <textarea id="inputText" placeholder="Type something here..."></textarea>
+    <button onclick="sendText()">Output</button>
+    <pre id="terminalOutput"></pre>
+    <button onclick="fetchHistory()">History</button>
+    <div id="historyContainer"></div>
+</div>
+
+<script>
+    async function sendText() {
+        const text = document.getElementById('inputText').value;
+        const response = await fetch('/api/process', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text }),
+        });
+        const result = await response.text();
+        document.getElementById('terminalOutput').textContent = result;
+    }
+    async function fetchHistory() {
+        const response = await fetch('/api/history/process');
+        const data = await response.json();
+        document.getElementById('historyContainer').innerHTML = '<h2>Process History</h2>' + data.map(item => `<p>${item.text}</p>`).join('');
+
+        
+    }
+</script>
+</body>
+</html>

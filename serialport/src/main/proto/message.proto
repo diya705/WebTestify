@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.example.serialport";
+option java_outer_classname = "MessageProto";
+
+message SerialMessage {
+  repeated string messages = 1;
+  repeated DisplayParameter displayParameters = 2;
+}
+message DisplayParameter {
+  string startPosition = 1;
+  int32 length = 2;
+  string dataType = 3;
+  string value = 4;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deva Autotronics Private Limited</title>
+    <link rel="stylesheet" href="website_style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html"><img src="images/comlogo.png" alt=""></a>
+            <div class="search">
+                <input class="srch" type="search" placeholder="Search..." onclick="toggleMenu()">
+                <button class="btn" type="submit">Search</button>
+                <div class="search-menu" id="searchMenu">
+                    <a href="bwsr.html">Browser</a>
+                    <a href="t_index.html">Terminal</a>
+                    <a href="serial.html">Serial Port</a>
+                </div>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <span class="icon" onclick="hidemenu()">&#10005;</span>
+                <ul>
+                    <li><a href="https://deva-autotronics.co.in/">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="profile.html"><span class="material-symbols-outlined">account_circle</span></a></li>
+                </ul>
+            </div>
+            <span class="icon" onclick="showmenu()">&#9776;</span>
+            
+        </nav>
+        <div class="Website">
+            <h1>Application Option</h1>
+            <h3>Different Application Options</h3>  
+            <div class="row">
+               <div class="Website-col">
+                 <a href="bwsr.html"><img src="images/chrome2.jpg" alt=""></a>
+                 <div class="layer">
+                   <a href="bwsr.html"><h3>Browser</h3></a>
+                  </div>
+                </div>
+               <div class="Website-col">
+                 <a href=""><img src="images/terminal.png" alt=""></a>
+                 <div class="layer">
+                   <a href="t_index.html"><h3>Terminal</h3></a>
+                 </div>
+                </div>
+                <div class="Website-col">
+                 <a href=""><img src="images/serialport.jpg" alt=""></a>
+                 <div class="layer">
+                   <a href="serial.html"><h3>Serial Protocol</h3></a>
+                 </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    
+    <script>
+        var navLinks = document.getElementById("navLinks");
+        function showmenu(){
+            navLinks.style.right ="0";
+        }
+        function hidemenu(){
+            navLinks.style.right = "-200px";
+        }
+        function toggleMenu() {
+         var searchMenu = document.getElementById("searchMenu");
+         searchMenu.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
