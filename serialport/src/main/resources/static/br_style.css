@@ -1,6 +1,7 @@
 header {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* This pushes elements to left and right ends */
     padding: 20px;
     background-color: #f0f0f0;
 }
@@ -27,4 +28,8 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+}
+.left-section {
+    display: flex;
+    align-items: center;
 }
