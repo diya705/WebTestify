@@ -3,422 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serial Port Communication</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        .message-list {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .message-item {
-            margin-bottom: 10px;
-            margin-right: 20px;
-        }
-        .display-parameter-form {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-    </style>
+    <title>Serial Port Communication | Deva Autotronics</title>
+    <link rel="stylesheet" href="serial_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<h1>Serial Port Communication</h1>
-<h2>Signals</h2>
-<form id="messageForm">
-    <label for="endValue">Enter the end value (1 to 31):</label>
-    <input type="number" id="endValue" name="endValue" min="1" max="31" required>
-    <button type="button" onclick="generateMessages()">Generate Messages</button>
-</form>
-<div class="message-list" id="messageList"></div>
-<button type="button" onclick="sendMessages()">Send Messages</button>
-<h2>Display Parameters</h2>
-<label for="numDisplayParameters">Enter the number of display parameters:</label>
-<input type="number" id="numDisplayParameters" name="numDisplayParameters" min="1" required>
-<button type="button" onclick="generateDisplayParameters()">Generate</button>
-<div id="displayParameterForms"></div>
-<button type="button" onclick="sendAllDisplayParameters()">Send All Display Parameters</button>
-<h2>Screen Change</h2>
-<label for="screenNumber">Enter the screen number:</label>
-<input type="number" id="screenNumber" name="screenNumber" min="1" required>
-<button type="button" onclick="sendScreenChange()">Send Screen Change</button>
-<div id="screenChangeOutput"></div>
-<h2>Date and Time</h2>
-<label for="second">Second:</label>
-<input type="number" id="second" name="second" min="0" max="59" required>
-<label for="minute">Minute:</label>
-<input type="number" id="minute" name="minute" min="0" max="59" required>
-<label for="hour">Hour:</label>
-<input type="number" id="hour" name="hour" min="0" max="23" required>
-<label for="date">Date:</label>
-<input type="number" id="date" name="date" min="1" max="31" required>
-<label for="month">Month:</label>
-<input type="number" id="month" name="month" min="1" max="12" required>
-<label for="year">Year:</label>
-<input type="number" id="year" name="year" min="2020" max="2100" required>
-<button type="button" onclick="sendDateTime()">Send Date and Time</button>
-<div id="dateTimeOutput"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/protobufjs/6.11.2/protobuf.min.js"></script>
-<script>
-    let MessageProto;
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="brand">
+                    <i class="fas fa-plug brand-icon"></i>
+                    <h1>Serial Port Communication</h1>
+                    <p>Professional Serial Protocol Management Interface</p>
+                </div>
+                <div class="connection-status" id="connectionStatus">
+                    <div class="status-indicator disconnected"></div>
+                    <span>Disconnected</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    protobuf.load("/message.proto", function(err, root) {
-    if (err) {
-        console.error("Error loading proto file:", err);
-        return;
-    }
-    MessageProto = root.lookupType("SerialMessage");
-    console.log("Proto loaded successfully:", MessageProto);
-  });
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Signals Section -->
+            <section class="card signals-section">
+                <div class="card-header">
+                    <h2><i class="fas fa-broadcast-tower"></i> Signal Control</h2>
+                    <p>Configure and manage communication signals</p>
+                </div>
+                <div class="card-body">
+                    <form class="form-group" id="messageForm">
+                        <div class="input-group">
+                            <label for="endValue" class="input-label">
+                                <i class="fas fa-hashtag"></i>
+                                End Value Range (1-31)
+                            </label>
+                            <input 
+                                type="number" 
+                                id="endValue" 
+                                name="endValue" 
+                                min="1" 
+                                max="31" 
+                                placeholder="Enter end value..."
+                                class="form-input"
+                                required
+                            >
+                            <button type="button" class="btn btn-primary" onclick="generateMessages()">
+                                <i class="fas fa-cogs"></i>
+                                Generate Signals
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="message-grid" id="messageList"></div>
+                    
+                    <div class="action-buttons" id="signalActions" style="display: none;">
+                        <button type="button" class="btn btn-success btn-large" onclick="sendMessages()">
+                            <i class="fas fa-paper-plane"></i>
+                            Send All Signals
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resetAllSignals()">
+                            <i class="fas fa-refresh"></i>
+                            Reset All
+                        </button>
+                    </div>
+                </div>
+            </section>
 
+            <!-- Display Parameters Section -->
+            <section class="card parameters-section">
+                <div class="card-header">
+                    <h2><i class="fas fa-display"></i> Display Parameters</h2>
+                    <p>Configure display parameter settings</p>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label for="numDisplayParameters" class="input-label">
+                                <i class="fas fa-list-ol"></i>
+                                Number of Parameters
+                            </label>
+                            <input 
+                                type="number" 
+                                id="numDisplayParameters" 
+                                name="numDisplayParameters" 
+                                min="1" 
+                                placeholder="Enter parameter count..."
+                                class="form-input"
+                                required
+                            >
+                            <button type="button" class="btn btn-primary" onclick="generateDisplayParameters()">
+                                <i class="fas fa-plus"></i>
+                                Generate Forms
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="parameters-container" id="displayParameterForms"></div>
+                    
+                    <div class="action-buttons" id="parameterActions" style="display: none;">
+                        <button type="button" class="btn btn-success btn-large" onclick="sendAllDisplayParameters()">
+                            <i class="fas fa-upload"></i>
+                            Send All Parameters
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-    function generateMessages() {
-        const endValue = document.getElementById('endValue').value;
-        const messageList = document.getElementById('messageList');
-        messageList.innerHTML = '';
+            <!-- Screen Control Section -->
+            <section class="card screen-section">
+                <div class="card-header">
+                    <h2><i class="fas fa-desktop"></i> Screen Control</h2>
+                    <p>Manage screen transitions and display</p>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label for="screenNumber" class="input-label">
+                                <i class="fas fa-tv"></i>
+                                Screen Number
+                            </label>
+                            <input 
+                                type="number" 
+                                id="screenNumber" 
+                                name="screenNumber" 
+                                min="1" 
+                                placeholder="Enter screen number..."
+                                class="form-input"
+                                required
+                            >
+                            <button type="button" class="btn btn-primary" onclick="sendScreenChange()">
+                                <i class="fas fa-exchange-alt"></i>
+                                Change Screen
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="output-display" id="screenChangeOutput"></div>
+                </div>
+            </section>
 
-        for (let i = 1; i <= endValue; i++) {
-            const hexValue = i.toString(16).padStart(2, '0').toUpperCase();
-            const onMessage = `5AA5058240${hexValue}0001`;
-            const offMessage = `5AA5058240${hexValue}0000`;
+            <!-- Date & Time Section -->
+            <section class="card datetime-section">
+                <div class="card-header">
+                    <h2><i class="fas fa-clock"></i> Date & Time Configuration</h2>
+                    <p>Set system date and time parameters</p>
+                </div>
+                <div class="card-body">
+                    <div class="datetime-grid">
+                        <div class="time-group">
+                            <h3><i class="fas fa-clock"></i> Time</h3>
+                            <div class="time-inputs">
+                                <div class="input-field">
+                                    <label for="hour">Hour</label>
+                                    <input type="number" id="hour" min="0" max="23" class="form-input" required>
+                                </div>
+                                <div class="input-field">
+                                    <label for="minute">Minute</label>
+                                    <input type="number" id="minute" min="0" max="59" class="form-input" required>
+                                </div>
+                                <div class="input-field">
+                                    <label for="second">Second</label>
+                                    <input type="number" id="second" min="0" max="59" class="form-input" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="date-group">
+                            <h3><i class="fas fa-calendar"></i> Date</h3>
+                            <div class="date-inputs">
+                                <div class="input-field">
+                                    <label for="date">Day</label>
+                                    <input type="number" id="date" min="1" max="31" class="form-input" required>
+                                </div>
+                                <div class="input-field">
+                                    <label for="month">Month</label>
+                                    <input type="number" id="month" min="1" max="12" class="form-input" required>
+                                </div>
+                                <div class="input-field">
+                                    <label for="year">Year</label>
+                                    <input type="number" id="year" min="2020" max="2100" class="form-input" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary btn-large" onclick="setCurrentDateTime()">
+                            <i class="fas fa-clock"></i>
+                            Set Current Time
+                        </button>
+                        <button type="button" class="btn btn-success btn-large" onclick="sendDateTime()">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Date & Time
+                        </button>
+                    </div>
+                    
+                    <div class="output-display" id="dateTimeOutput"></div>
+                </div>
+            </section>
+        </div>
+    </main>
 
-            const messageItem = document.createElement('div');
-            messageItem.className = 'message-item';
-            messageItem.innerHTML = `
-                <label for="message${i}"> Message ${i}:</label>
-                <input type="radio" id="message${i}on" name="message${i}" value="${onMessage}" checked>
-                <label for="message${i}on">ON</label>
-                <input type="radio" id="message${i}off" name="message${i}" value="${offMessage}">
-                <label for="message${i}off">OFF</label>
-            `;
-            messageList.appendChild(messageItem);
-        }
-    }
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing request...</p>
+        </div>
+    </div>
 
-    function generateDisplayParameters() {
-        const numDisplayParameters = document.getElementById('numDisplayParameters').value;
-        const displayParameterForms = document.getElementById('displayParameterForms');
-        displayParameterForms.innerHTML = '';
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
 
-        for (let i = 0; i < numDisplayParameters; i++) {
-            const displayParameterForm = document.createElement('div');
-            displayParameterForm.className = 'display-parameter-form';
-            displayParameterForm.innerHTML = `
-                <h3>Display Parameter ${i + 1}</h3>
-                <label for="startPosition${i}">Start Position:</label>
-                <input type="text" id="startPosition${i}" name="startPosition${i}" required>
-                <label for="length${i}">Length:</label>
-                <select id="length${i}" name="length${i}">
-                    <option value="2">2 bytes</option>
-                    <option value="4">4 bytes</option>
-                </select>
-                <label for="dataType${i}">Data Type:</label>
-                <select id="dataType${i}" name="dataType${i}">
-                    <option value="signed">Signed</option>
-                    <option value="unsigned">Unsigned</option>
-                    <option value="float">Float</option>
-                </select>
-                <label for="value${i}">Value:</label>
-                <input type="text" id="value${i}" name="value${i}" required>
-                <span id="error${i}"></span>
-                <button type="button" onclick="sendDisplayParameter(${i})">Send Display Parameter</button>
-            `;
-            displayParameterForms.appendChild(displayParameterForm);
-        }
-    }
-
-    function sendMessages() {
-        if (!MessageProto) {
-            alert("Protobuf is not loaded yet. Please try again.");
-            return;
-        }
-
-        const selectedMessages = Array.from(document.querySelectorAll('input[name^="message"]:checked'))
-            .map(checkbox => checkbox.value);
-
-        const messageBuffer = MessageProto.encode({
-            messages: selectedMessages
-        }).finish();
-
-        fetch('/api/sendMessages', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-protobuf'
-            },
-            body: messageBuffer
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            alert(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    function sendDisplayParameter(index) {
-        if (!MessageProto) {
-            alert("Protobuf is not loaded yet. Please try again.");
-            return;
-        }
-
-        const startPosition = document.getElementById(`startPosition${index}`).value;
-        const length = document.getElementById(`length${index}`).value;
-        const dataType = document.getElementById(`dataType${index}`).value;
-        const value = document.getElementById(`value${index}`).value;
-
-        const displayParameter = {
-            startPosition,
-            length,
-            dataType,
-            value
-        };
-
-        const messageBuffer = MessageProto.encode({
-            displayParameters: [displayParameter]
-        }).finish();
-
-        fetch('/api/sendMessages', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-protobuf'
-            },
-            body: messageBuffer
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            alert(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    function sendAllDisplayParameters() {
-        if (!MessageProto) {
-            alert("Protobuf is not loaded yet. Please try again.");
-            return;
-        }
-
-        const numDisplayParameters = document.getElementById('numDisplayParameters').value ;
-        const displayParameters = [];
-
-        for (let i = 0; i < numDisplayParameters; i++) {
-            const startPosition = document.getElementById(`startPosition${i}`).value;
-            const length = document.getElementById(`length${i}`).value;
-            const dataType = document.getElementById(`dataType${i}`).value;
-            const value = document.getElementById(`value${i}`).value;
-
-            displayParameters.push({
-                startPosition,
-                length,
-                dataType,
-                value
-            });
-        }
-
-        const messageBuffer = MessageProto.encode({
-            displayParameters
-        }).finish();
-
-        fetch('/api/sendMessages', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-protobuf'
-            },
-            body: messageBuffer
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            alert(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-    function sendScreenChange() {
-    if (!MessageProto) {
-        alert("Protobuf is not loaded yet. Please try again.");
-        return;
-    }
-
-    const screenNumber = document.getElementById('screenNumber').value;
-    const hexScreenNumber = (screenNumber).toString(16).padStart(4, '0').toUpperCase();
-
-    const screenChangeMessage = `5AA5078200845A01${hexScreenNumber}`;
-
-    const messageBuffer = MessageProto.encode({
-        messages: [screenChangeMessage]
-    }).finish();
-
-    fetch('/api/sendMessages', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-protobuf'
-        },
-        body: messageBuffer
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-    })
-    .then(data => {
-        document.getElementById('screenChangeOutput').innerHTML = `Screen change: Screen ${screenNumber}`;
-
-        // Reset signals and display parameters
-        resetSignalsAndDisplayParameters(screenNumber);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-  }
-
- function resetSignalsAndDisplayParameters(screenNumber) {
-    // Reset signals
-    const numSignals = 31; // Assuming 31 signals
-    const signalResetMessages = [];
-    for (let i = 1; i <= numSignals; i++) {
-        const signalResetMessage = `5AA5058240${i.toString(16).padStart(2, '0').toUpperCase()}0000`;
-        signalResetMessages.push(signalResetMessage);
-    }
-
-    // Reset display parameters
-    const numDisplayParameters = document.getElementById('numDisplayParameters').value;
-    const displayParameterResetMessages = [];
-    for (let i = 0; i < numDisplayParameters; i++) {
-        const startPosition = document.getElementById(`startPosition${i}`).value;
-        const length = document.getElementById(`length${i}`).value;
-        const dataType = document.getElementById(`dataType${i}`).value;
-        const displayParameterResetMessage = generatePacket(startPosition, length, dataType, '0');
-        displayParameterResetMessages.push(displayParameterResetMessage);
-    }
-
-    // Send reset messages
-    const resetMessageBuffer = MessageProto.encode({
-        messages: signalResetMessages.concat(displayParameterResetMessages)
-    }).finish();
-
-    fetch('/api/sendMessages', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-protobuf'
-        },
-        body: resetMessageBuffer
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-    })
-    .then(data => {
-        console.log('Signals and display parameters reset successfully!');
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
- }
-  function sendDateTime() {
-    if (!MessageProto) {
-        alert("Protobuf is not loaded yet. Please try again.");
-        return;
-    }
-
-    const second = document.getElementById('second').value;
-    const minute = document.getElementById('minute').value;
-    const hour = document.getElementById('hour').value;
-    const date = document.getElementById('date').value;
-    const month = document.getElementById('month').value;
-    const year = document.getElementById('year').value;
-
-    const hexSecond = (second).toString(16).padStart(2, '0').toUpperCase();
-    const hexMinute = (minute).toString(16).padStart(2, '0').toUpperCase();
-    const hexHour = (hour).toString(16).padStart(2, '0').toUpperCase();
-    const hexDate = (date).toString(16).padStart(2, '0').toUpperCase();
-    const hexMonth = (month).toString(16).padStart(2, '0').toUpperCase();
-    const hexYear = (year - 2000).toString(16).padStart(2, '0').toUpperCase();
-
-    // Corrected order: year, month, date, hour, minute, second
-    const dateTimeMessage = `5AA50B82009C5AA5${hexYear}${hexMonth}${hexDate}${hexHour}${hexMinute}${hexSecond}`;
-
-    const messageBuffer = MessageProto.encode({
-        messages: [dateTimeMessage]
-    }).finish();
-
-    fetch('/api/sendMessages', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-protobuf'
-        },
-        body: messageBuffer
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-    })
-    .then(data => {
-        document.getElementById('dateTimeOutput').innerHTML =
-            `DTM - ${date}:${month}:${year}<br>HMS - ${hour}:${minute}:${second}`;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-  }
-
-
-    document.addEventListener('input', function(event) {
-        if (event.target.tagName === 'INPUT' && event.target.type === 'text') {
-            const dataType = event.target.parentNode.querySelector('select').value;
-            const value = event.target.value;
-            const error = event.target.parentNode.querySelector('span');
-
-            if (dataType === 'signed') {
-                const intValue = parseInt(value);
-                if (isNaN(intValue) || intValue < -Math.pow(2, 15) || intValue > Math.pow(2, 15) - 1) {
-                    error.textContent = 'Invalid signed value';
-                } else {
-                    error.textContent = '';
-                }
-            } else if (dataType === 'unsigned') {
-                const intValue = parseInt(value);
-                if (isNaN(intValue) || intValue < 0 || intValue > Math.pow(2, 16) - 1) {
-                    error.textContent = 'Invalid unsigned value';
-                } else {
-                    error.textContent = '';
-                }
-            } else if (dataType === 'float') {
-                const floatValue = parseFloat(value);
-                if (isNaN(floatValue)) {
-                    error.textContent = 'Invalid float value';
-                } else {
-                    error.textContent = '';
-                }
-            }
-        }
-    });
-</script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/protobufjs/6.11.2/protobuf.min.js"></script>
+    <script src="serial_script.js"></script>
 </body>
 </html>

@@ -3,59 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="profile_style.css">
-    <script defer src="profile_scripts.js"></script>
+    <title>User Profile | WebTestify</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <img src="images/profilephoto.png" alt="" class="profile-photo" id="profile-photo">
-            <div class="profile-info">
-                <h1 class="profile-name" id="profile-name">Username</h1>
-                <p class="profile-email" id="profile-email">example@gmail.com</p>
-            
-                <p class="profile-linkedin" id="profile-linkedin">Linkedin: <a href="#" id="linkedin-link">Add Link</a></p>
 
+    <header class="site-header">
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="images/comlogo.png" alt="Web Testify Logo" class="logo-icon">
+                </div>
+                <span>Web Testify</span>
+            </a>
+            <div class="search-container">
+                <div class="search">
+                    <input class="search-input" type="search" placeholder="Search tools..." onclick="toggleMenu()">
+                    <button class="search-btn" type="submit"><span class="material-symbols-outlined">search</span></button>
+                </div>
+                <div class="search-menu" id="searchMenu">
+                    <a href="browser.html"><span class="material-symbols-outlined">web</span> Browser Testing</a>
+                    <a href="#"><span class="material-symbols-outlined">terminal</span> Terminal Access</a>
+                    <a href="#"><span class="material-symbols-outlined">cable</span> Serial Port Testing</a>
+                </div>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="login.html"><span class="material-symbols-outlined">login</span> Sign In</a></li>
+                    <li><a href="about.html"><span class="material-symbols-outlined">info</span> About</a></li>
+                    <li><a href="contact.html"><span class="material-symbols-outlined">contact_mail</span> Contact</a></li>
+                    <li><a href="profile.html" class="profile-icon active"><span class="material-symbols-outlined">account_circle</span></a></li>
+                </ul>
+            </div>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()"><span class="material-symbols-outlined" id="mobileMenuIcon">menu</span></button>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="profile-card">
+            <header class="profile-header">
+                <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User's profile photo" class="profile-photo" id="profile-photo">
+                <div class="profile-info">
+                    <h1 id="profile-name">Username</h1>
+                    <p id="profile-email">example@gmail.com</p>
+                    <p class="profile-linkedin">
+                        <a href="#" id="linkedin-link" target="_blank" rel="noopener noreferrer">Add LinkedIn Profile</a>
+                    </p>
+                </div>
+            </header>
+
+            <div class="profile-actions">
+                <button id="edit-profile-btn" class="button-primary">Edit Profile</button>
             </div>
 
+            <section class="profile-support">
+                <h2>Help and Support</h2>
+                <ul>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </section>
         </div>
-        <button id="edit-profile-btn">Edit Profile</button>
-        
-        <div class="profile-support">
-            <h2>Help and Support</h2>
-            <p>If you need any assistance, please reach out to our support team</p>
-            <ul class="support-list">
-                <li><a href="contact.html">Email Support</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-
-            </ul>
-
+    </main>
+    
+    <div id="edit-profile-modal" class="modal-overlay" hidden>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <header class="modal-header">
+                <h2 id="modal-title">Edit Profile</h2>
+                <button id="close-modal" class="close-btn" aria-label="Close dialog">&times;</button>
+            </header>
+            
+            <form id="edit-profile-form">
+                <div class="form-group">
+                    <label for="profile-photo-input">Profile Photo</label>
+                    <input type="file" id="profile-photo-input" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="profile-name-input">Name</label>
+                    <input type="text" id="profile-name-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="profile-email-input">Email</label>
+                    <input type="email" id="profile-email-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="linkedin-url-input">LinkedIn Profile URL</label>
+                    <input type="url" id="linkedin-url-input" placeholder="https://linkedin.com/in/yourname">
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="delete-profile-btn" class="button-danger">Delete Profile</button>
+                    <button type="submit" id="save-changes-btn" class="button-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
-
     </div>
-    <!----Edit Profile-->
-    <div id="edit-profile-modal" class="modal">
-        <span class="close-btn" id="close-modal">&times;</span>
-        <h2>Edit Profile</h2>
-        <form id="edit-profile-form">
-            <label for="profile-photo-input">Profie Photo:</label>
-            <input type="file" id="profile-photo-input"><br><br>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                 <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon"><span class="material-symbols-outlined">science</span></div>
+                        <h3>Web Testify</h3>
+                    </div>
+                    <p>Professional testing solutions for modern development teams.</p>
+                </div>
+                <div class="footer-section"><h4>Services</h4><ul><li><a href="#">Browser Testing</a></li><li><a href="#">Terminal Access</a></li><li><a href="#">Serial Port Testing</a></li></ul></div>
+                <div class="footer-section"><h4>Resources</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">Blog</a></li><li><a href="#">Support</a></li></ul></div>
+                <div class="footer-section"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Web Testify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-            <label for="profile-name-input">Name</label>
-            <input type="text" id="profile-name-input" value="Username"><br><br>
-
-            <label for="profile-email-input">Email</label>
-            <input type="email" id="profile-email-input" value="example@gmail.com"><br><br>
-
-            <!--<label for="facebook-id-input">Facebook ID</label>-->
-            <!--"linkedin-id-input">Linkedin ID</label>-->
-            <input type="text" id="linkedin-id-input" placeholder="Linkedin Profile Link"><br><br>
-
-            <button type="button" id="save-changes-btn">Save Changes</button>
-            <button type="button" id="delete-profile-btn">Delete Profile</button>
-        </form>
-
-    </div>
+    <script src="index.js"></script>
+    <script defer src="profile_scripts.js"></script>
 </body>
 </html>
