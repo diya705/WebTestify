@@ -1,0 +1,36 @@
+Website Test Report
+===================
+
+Website URL: https://startup-topaz.vercel.app/login
+Test Date: Sun Jun 08 20:57:01 PDT 2025
+
+Test Steps:
+-----------
+
+Step 1:
+  Action: INPUT
+  Element: riyagirl9411@gmail.com
+  Output: Text entered successfully: riyagirl9411@gmail.com
+  Timestamp: Sun Jun 08 20:57:06 PDT 2025
+  Screenshot: screenshots/928053f0-fba3-493d-9196-e1f0a8133954.png
+
+Step 2:
+  Action: INPUT
+  Element: 1234
+  Output: Text entered successfully: 1234
+  Timestamp: Sun Jun 08 20:57:07 PDT 2025
+  Screenshot: screenshots/e059c6af-c2d2-4cf8-a5a8-ee64c5ce824a.png
+
+Step 3:
+  Action: CLICK
+  Element: 
+  Output: Element clicked successfully
+  Timestamp: Sun Jun 08 20:57:07 PDT 2025
+  Screenshot: screenshots/198d5096-57e7-461b-9a92-f083755fced8.png
+
+Step 4:
+  Action: VERIFY_URL
+  Element: https://startup-topaz.vercel.app/
+  Output: Error: Cannot find elements when the selector is null
+  Timestamp: Sun Jun 08 20:57:07 PDT 2025
+  Screenshot: null

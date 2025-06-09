@@ -21,11 +21,27 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.serialport.model.TestAction;
+import com.example.serialport.model.TestResults;
+import com.example.serialport.service.BrowserTestingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +51,7 @@ import org.springframework.core.env.Environment;
 
 @RestController
 @RequestMapping("/api")
-
+@CrossOrigin(origins = "*")
 public class SerialController {
     private static final Logger log = LoggerFactory.getLogger(SerialController.class);
 
@@ -62,6 +78,9 @@ public class SerialController {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private BrowserTestingService testingService;
 
     @Value("${serial.port}")
     private String serialPortName;
@@ -359,5 +378,38 @@ public class SerialController {
                     + Character.digit(hexString.charAt(i + 1), 16));
         }
         return data;
+    }
+
+    @PostMapping("/run")
+    public ResponseEntity<TestResults> runTest(@RequestBody TestRequest request) throws Exception {
+        TestResults result = testingService.testWebsite(request.getUrl(), request.getActions());
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/results")
+    public ResponseEntity<List<TestResults>> getAllResults() {
+        return ResponseEntity.ok(testingService.getAllResults());
+    }
+
+    @GetMapping("/results/{id}/textfile")
+    public ResponseEntity<Resource> getTextFile(@PathVariable String id) throws Exception {
+        TestResults result = testingService.getTestResult(id);
+        Path path = Paths.get(result.getTextFileReference());
+        Resource resource = new UrlResource(path.toUri());
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_PLAIN)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
+    public static class TestRequest {
+        private String url;
+        private List<TestAction> actions;
+
+        public String getUrl() { return url; }
+        public void setUrl(String url) { this.url = url; }
+        public List<TestAction> getActions() { return actions; }
+        public void setActions(List<TestAction> actions) { this.actions = actions; }
     }
 }

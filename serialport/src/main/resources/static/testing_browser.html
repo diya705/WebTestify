@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Testing Tool</title>
+    <link rel="stylesheet" href="tstbrwsr_style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Browser Testing Tool</h1>
+        <p>Automate website testing and capture results</p>
+    </header>
+
+    <div class="test-configuration">
+        <h2>Test Configuration</h2>
+        <div class="form-group">
+            <label for="websiteUrl">Website URL:</label>
+            <input type="text" id="websiteUrl" placeholder="https://example.com">
+        </div>
+
+        <div id="actions-container">
+            <h3>Test Actions</h3>
+            <div class="action">
+                <select class="action-type">
+                    <option value="CLICK">Click</option>
+                    <option value="INPUT">Input Text</option>
+                    <option value="NAVIGATE">Navigate To URL</option>
+                    <option value="VERIFY_URL">Verify Current URL</option>
+                </select>
+                <input type="text" class="element-selector" placeholder="CSS Selector">
+                <input type="text" class="input-value" placeholder="Input value or URL">
+                <button class="remove-action">Remove</button>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="add-action">Add Action</button>
+            <button id="run-test">Run Test</button>
+        </div>
+    </div>
+
+    <div class="test-results">
+        <h2>Test Results</h2>
+        <div id="results-list"></div>
+    </div>
+</div>
+
+<script src="tstbrwsr_script.js"></script>
+</body>
+</html>
