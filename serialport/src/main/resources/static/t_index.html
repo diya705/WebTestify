@@ -3,39 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Input to Terminal</title>
+    <title>CLI Interface</title>
     <link rel="stylesheet" href="t_styles.css">
+    <script src="t_script.js" defer></script>
 </head>
 <body>
-<div class="container">
-    <h1>Text Input to Terminal</h1>
-    <textarea id="inputText" placeholder="Type something here..."></textarea>
-    <button onclick="sendText()">Output</button>
-    <pre id="terminalOutput"></pre>
-    <button onclick="fetchHistory()">History</button>
-    <div id="historyContainer"></div>
-</div>
 
-<script>
-    async function sendText() {
-        const text = document.getElementById('inputText').value;
-        const response = await fetch('/api/process', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ text }),
-        });
-        const result = await response.text();
-        document.getElementById('terminalOutput').textContent = result;
-    }
-    async function fetchHistory() {
-        const response = await fetch('/api/history/process');
-        const data = await response.json();
-        document.getElementById('historyContainer').innerHTML = '<h2>Process History</h2>' + data.map(item => `<p>${item.text}</p>`).join('');
+    <main class="container">
+        <header class="main-header">
+            <h1>CLI Input Terminal</h1>
+            <p>Enter your command below and see the output.</p>
+        </header>
 
-        
-    }
-</script>
+        <div class="input-area">
+            <label for="inputText" class="sr-only">Input Text</label>
+            <textarea id="inputText" placeholder="Type a command..."></textarea>
+            <button id="sendButton" aria-label="Send Text to Terminal">Output</button>
+        </div>
+
+        <div class="output-area">
+            <h2>Terminal Output</h2>
+            <pre id="terminalOutput" aria-live="polite">Output will appear here...</pre>
+        </div>
+
+        <div class="history-area">
+            <button id="historyButton">Show History</button>
+            <div id="historyContainer" class="history-content">
+                </div>
+        </div>
+    </main>
+
 </body>
 </html>

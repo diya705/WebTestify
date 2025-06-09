@@ -3,67 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deva Autotronics Private Limited</title>
-    <link rel="stylesheet" href="main_style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?
-    family=poppins:wght@100;200;300;400;600;700&display=swap" 
-    rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <title>Web Testify - Professional Testing Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-</head>
+    <link rel="stylesheet" href="index_style.css">
+</head> 
 <body>
     <section class="header">
         <nav>
-            <a href="index.html"><img src="images/comlogo.png" alt=""></a>
-            <div class="search">
-                <input class="srch" type="search" placeholder="Search..." onclick="toggleMenu()">
-                <button class="btn" type="submit">Search</button>
-                <div class="search-menu" id="searchMenu">
-                    <a href="login.html">Browser</a>
-                    <a href="login.html">Terminal</a>
-                    <a href="login.html">Serial Port</a>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="images/comlogo.png" alt="Web Testify Logo" class="logo-icon">
+                </div>
+                <span>Web Testify</span>
+            </a>
 
+            <div class="search-container">
+                <div class="search">
+                    <input class="search-input" type="search" placeholder="Search tools and services..." onclick="toggleMenu()">
+                    <button class="search-btn" type="submit">
+                        <span class="material-symbols-outlined">search</span>
+                    </button>
+                </div>
+                <div class="search-menu" id="searchMenu">
+                    <a href="login.html">
+                        <span class="material-symbols-outlined">web</span>
+                        Browser Testing
+                    </a>
+                    <a href="login.html">
+                        <span class="material-symbols-outlined">terminal</span>
+                        Terminal Access
+                    </a>
+                    <a href="login.html">
+                        <span class="material-symbols-outlined">cable</span>
+                        Serial Port Testing
+                    </a>
+                </div>
+            </div>
+
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="login.html">
+                        <span class="material-symbols-outlined">login</span>
+                        Sign In
+                    </a></li>
+                    <li><a href="about.html">
+                        <span class="material-symbols-outlined">info</span>
+                        About
+                    </a></li>
+                    <li><a href="contact.html">
+                        <span class="material-symbols-outlined">contact_mail</span>
+                        Contact
+                    </a></li>
+                    <li><a href="profile.html" class="profile-icon">
+                        <span class="material-symbols-outlined">account_circle</span>
+                    </a></li>
+                </ul>
+            </div>
+
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </nav>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>WEB <span class="highlight">TESTIFY</span></h1>
+                <p>Professional Software and Hardware Testing Solutions for Modern Development Teams</p>
+                <a href="website.html" class="cta-button">
+                    <span class="material-symbols-outlined">rocket_launch</span>
+                    Explore Our Solutions
+                </a>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3>Web Testing</h3>
+                        <p>Comprehensive browser compatibility and performance testing</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Hardware Testing</h3>
+                        <p>Advanced serial port and device communication testing</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <h3>Automation</h3>
+                        <p>Automated testing workflows for faster development cycles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <span class="material-symbols-outlined">web</span>
+                        </div>
+                        <h3>Web Testify</h3>
+                    </div>
+                    <p>Professional testing solutions for modern development teams. Streamline your testing workflow with our comprehensive tools.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">
+                            <span class="material-symbols-outlined">work</span>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <span class="material-symbols-outlined">chat</span>
+                        </a>
+                        <a href="#" aria-label="GitHub">
+                            <span class="material-symbols-outlined">code</span>
+                        </a>
+                    </div>
                 </div>
 
-            </div>
-                
-              
-            <div class="nav-links" id="navLinks">
-                <span class="icon" onclick="hidemenu()">&#10005;</span>
-                <ul>
-                    <li><a href="login.html">Signup/Login</a></li>
-                    <li><a href="https://deva-autotronics.co.in/">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="profile.html"><span class="material-symbols-outlined">account_circle</span></a></li>
-                    
-                    
-                </ul> 
-            </div>
-            <span class="icon" onclick="showmenu()">&#9776;</span>
-        </nav>
-        <div class="text-box">
-            <h1>WEB TESTIFY</h1>
-            <p>Software and Hardware Testing Application.</p>
-            <a href="https://deva-autotronics.co.in/" class="hero-btn">Visit Us TO Know More</a>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Browser Testing</a></li>
+                        <li><a href="#">Terminal Access</a></li>
+                        <li><a href="#">Serial Port Testing</a></li>
+                        <li><a href="#">API Testing</a></li>
+                        <li><a href="#">Performance Testing</a></li>
+                    </ul>
+                </div>
 
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">mail</span>
+                            <span>info@webtestify.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">phone</span>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span>Khandari, Agra 202008, India</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Web Testify. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
         </div>
+    </footer>
 
-    </section>
-    
-    <script>
-        var navLinks = document.getElementById("navLinks");
-        function showmenu(){
-            navLinks.style.right ="0";
-        }
-        function hidemenu(){
-            navLinks.style.right = "-200px";
-        }
-        function toggleMenu() {
-         var searchMenu = document.getElementById("searchMenu");
-         searchMenu.classList.toggle('show');
-        }
-    </script>
-    
+    <script src="index.js"></script>
 </body>
 </html>

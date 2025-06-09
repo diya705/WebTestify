@@ -1,37 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Form</title>
-  <link rel="stylesheet" href="login_style.css">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | YourApp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="login_style.css">
 </head>
+
 <body>
-  <div class="wrapper">
-    <form id="loginForm">
-      <h1>Login</h1>
-      <div class="input-box">
-        <input type="text" id="username" placeholder="Username" required name="username">
-        <i class='bx bxs-user'></i>
-      </div>
-      
-      <div class="input-box">
-        <input type="password" id="password" placeholder="Password" required name="password">
-        <i class='bx bxs-lock-alt' ></i>
-      </div>
-      <div class="remember-forgot">
-        <label><input type="checkbox">Remember Me</label>
-        <a href="#">Forgot Password</a>
-      </div>
-      <button type="submit" class="btn">Login</button>
-      <div class="register-link">
-        <p>Dont have an account? <a href="register.html">Register</a></p>
-      </div>
-    </form>
-  </div>
-  <script src="login.js"></script>
-  
+
+    <div class="login-container">
+        <div class="branding-panel">
+            <div class="branding-content">
+                <!-- <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5-10-5-10 5z"></path></svg> -->
+                <img src="/images/comlogo.png" alt="Web Testify" class="logo">
+                <h2>Welcome Back!</h2>
+                <p>Enter your credentials to access your account and manage your projects.</p>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <form id="loginForm" novalidate>
+                <h1>Member Login</h1>
+
+                <div id="formMessage" class="form-message" aria-live="polite"></div>
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <div class="input-box">
+                        <i class='bx bxs-user'></i>
+                        <input type="text" id="username" placeholder="e.g., john.doe" required autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-box">
+                        <i class='bx bxs-lock-alt'></i>
+                        <input type="password" id="password" placeholder="••••••••" required
+                            autocomplete="current-password">
+                    </div>
+                </div>
+
+                <div class="options">
+                    <label class="remember-me"><input type="checkbox">Remember Me</label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-login" id="loginButton">Login</button>
+
+                <div class="separator">
+                    <span>OR</span>
+                </div>
+
+                <button type="button" class="btn-social google">
+                    <i class='bx bxl-google'></i> Sign in with Google
+                </button>
+
+                <div class="register-link">
+                    <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
 </body>
+
 </html>

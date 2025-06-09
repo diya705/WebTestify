@@ -3,17 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Output</title>
-    <link rel="stylesheet" href="out_styles.css">
+    <title>Output | WebTestify</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Browser Output</h1>
-    <p id="outputText"></p>
+    <main>
+        <section class="page-hero">
+            <h1>Processed Output</h1>
+            <p class="subtitle">This is the result generated from the Browser Testing Environment.</p>
+        </section>
+        <section class="tool-section">
+            <div class="output-container">
+                <pre id="outputText">Loading...</pre>
+            </div>
+        </section>
+    </main>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const ouputText = document.getElementById('outputText');
-        outputText.textContent = urlParams.get('text');
+        window.addEventListener('DOMContentLoaded', () => {
+            const outputElement = document.getElementById('outputText');
+            const params = new URLSearchParams(window.location.search);
+            const text = params.get('text');
+            outputElement.textContent = text ? decodeURIComponent(text) : 'No output received.';
+        });
     </script>
-    
 </body>
 </html>

@@ -1,60 +1,172 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* --- Global Styles & Variables --- */
+:root {
+    --background-color: #1a1b26;
+    --foreground-color: #24283b;
+    --primary-text-color: #c0caf5;
+    --secondary-text-color: #a9b1d6;
+    --accent-color: #7aa2f7;
+    --accent-hover-color: #9ece6a;
+    --border-color: #414868;
+    --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-family-mono: 'SF Mono', 'Consolas', 'Menlo', monospace;
+}
+
+/* --- Basic Reset & Body --- */
+* {
     margin: 0;
-    background-color: #f0f0f0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: var(--font-family-sans);
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    line-height: 1.6;
+    padding: 1rem;
+}
+
+/* --- Main Container & Layout --- */
 .container {
-    width: 50%;
-    max-width: 600px;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: var(--foreground-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
+/* --- Header --- */
+.main-header {
     text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.main-header h1 {
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+/* --- Input & Buttons --- */
+.input-area {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-    resize: none;
+    flex-grow: 1;
+    min-height: 80px;
+    padding: 0.75rem;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--primary-text-color);
+    font-family: var(--font-family-mono);
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(122, 162, 247, 0.3);
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 0.5rem 1.5rem;
+    background-color: var(--accent-color);
+    color: var(--foreground-color);
     border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 16px;
+    border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: stretch; /* Make button same height as textarea */
 }
 
-button:hover {
-    background-color: #0056b3;
+button:hover:not(:disabled) {
+    background-color: var(--accent-hover-color);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- Terminal Output --- */
+.output-area, .history-area {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
 }
 
 pre {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 20px;
+    background-color: var(--background-color);
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-family: var(--font-family-mono);
+    min-height: 50px;
+}
+
+/* --- History Section --- */
+.history-content {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-top: 1rem;
+    padding: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-content p {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--font-family-mono);
+}
+
+.history-content p:last-child {
+    border-bottom: none;
+}
+
+/* --- Utility & Accessibility --- */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+    body {
+        padding: 0.5rem;
+    }
+    .container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+    .input-area {
+        flex-direction: column;
+    }
 }
